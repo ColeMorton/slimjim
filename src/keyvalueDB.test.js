@@ -1,6 +1,7 @@
 const assert = require('assert')
-
+const rimraf = require('rimraf')
 const OrbitDB = require('orbit-db')
+
 const ipfs = require('./ipfs')
 const keyvalueDB = require('./keyvalueDB')
 
@@ -15,6 +16,10 @@ describe('keyvalueDB', function() {
   afterEach(async function() {
     orbitdb.stop()
     await ipfsNode.stop()
+  })
+
+  after(function(done) {
+    rimraf('./orbitdb', done);
   })
 
   it('should getInstance', async function() {
