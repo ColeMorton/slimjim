@@ -34,10 +34,10 @@ const addEventHandlers = (node, eventHandlers) => {
   eventHandlers.forEach((eventHandler, key) => node[key].then(eventHandler))
 }
 
-const getNode = async () => {
+const getNode = async (ipfsConfig) => {
   try {
     console.log('Starting IPFS...')
-    const node = new IPFSWrapper(IPFS_CONFIG)
+    const node = new IPFSWrapper({ ...IPFS_CONFIG, ...ipfsConfig })
     addEventHandlers(node, EVENT_HANDLERS)
     await node.onReady
     return node
