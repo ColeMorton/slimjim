@@ -1,24 +1,25 @@
 const assert = require('assert')
 const OrbitDB = require('orbit-db')
 
-const ipfs = require('./ipfs')
+const IPFS = require('./ipfs')
 const keyvalueDB = require('./keyvalueDB')
 
-xdescribe('keyvalueDB', function() {
-  let ipfsNode, orbitdb
+describe('keyvalueDB', function() {
+  let ipfs, orbitdb
 
   beforeEach(async function() {
-    ipfsNode = await ipfs.getNode()
-    orbitdb = new OrbitDB(ipfsNode, './orbitdb/keyvalue')
+    ipfs = new IPFS()
+    await ipfs.onReady
+    orbitdb = new OrbitDB(ipfs, './orbitdb/keyvalue')
   })
 
   afterEach(async function() {
     orbitdb.stop()
-    await ipfsNode.stop()
+    await ipfs.stop()
   })
 
   it('should getInstance', async function() {
-    const db = await keyvalueDB.getInstance(ipfsNode, orbitdb)
+    const db = await keyvalueDB.getInstance(ipfs, orbitdb)
     assert.deepEqual(db, {})
   })
 })

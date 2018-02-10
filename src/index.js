@@ -1,16 +1,13 @@
-const ipfs = require('./ipfs')
+const IPFS = require('./ipfs')
 const OrbitDB = require('orbit-db')
-
-const eventlog = require('./eventlog')
 
 const init = async () => {
   try {
-    // const ipfsNode = await ipfs.getNode()
-    // const orbitdb = new OrbitDB(ipfsNode, './orbitdb/keyvalue')
-    // orbitdb.stop()
-    // await ipfsNode.stop()
-
-    // eventlog.init()
+    const ipfs = new IPFS()
+    await ipfs.onReady
+    const orbitdb = new OrbitDB(ipfs, './orbitdb/keyvalue')
+    orbitdb.stop()
+    await ipfs.stop()
   } catch (e) {
     throw e
   }
