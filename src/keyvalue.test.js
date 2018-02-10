@@ -21,7 +21,6 @@ describe('keyvalue', function() {
       await db.drop()
       await orbitdb.stop()
       await ipfs.stop()
-      process.exit(0)
     } catch (e) {
       console.error(e)
       process.exit(1)
