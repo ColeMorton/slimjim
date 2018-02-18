@@ -24,7 +24,7 @@ const TodoModel = (db) => {
     todos: []
   })
 
-  const subscribe = (done) => model.subscribe((state) => {
+  const subscribe = (done) => model.subscribe(() => {
     const todos = db
       .query(e => true, { fullOp: true })
       .map(e => e.todo)
