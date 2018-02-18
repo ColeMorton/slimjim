@@ -4,6 +4,7 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "test": "mocha ./src/*.test.js --recursive --exit"
   },
   "devDependencies": {
@@ -11,6 +12,7 @@
   },
   "dependencies": {
     "ipfs": "^0.27.7",
-    "orbit-db": "^0.19.4"
+    "orbit-db": "^0.19.4",
+    "webpack": "^3.11.0"
   }
 }
