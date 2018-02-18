@@ -1,12 +1,11 @@
 const assert = require('assert')
-
 const IPFS = require('./ipfs')
 
-describe('ipfs', function() {
+xdescribe('ipfs', function() {
   let ipfs
 
   beforeEach(async function() {
-    ipfs = new IPFS()
+    ipfs = IPFS()
     await ipfs.onReady
   })
 

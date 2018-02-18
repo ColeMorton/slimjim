@@ -3,18 +3,18 @@ const OrbitDB = require('orbit-db')
 
 // Configuration for IPFS instance
 const ipfsConfig = {
-  // repo: '/orbitdb/examples/todomvc/ipfs/0.27.0',
+  repo: '/orbitdb/examples/todomvc/ipfs/0.27.0',
   EXPERIMENTAL: {
     pubsub: true,
   },
-  config: {
-    Addresses: {
-      Swarm: [
-        // Use IPFS dev signal server
-        '/dns4/star-signal.cloud.ipfs.team/wss/p2p-webrtc-star',
-      ]
-    },
-  }
+  // config: {
+  //   Addresses: {
+  //     Swarm: [
+  //       // Use IPFS dev signal server
+  //       '/dns4/star-signal.cloud.ipfs.team/wss/p2p-webrtc-star',
+  //     ]
+  //   },
+  // }
 }
 
 // Configuration for the database
@@ -33,7 +33,7 @@ const dbConfig = {
 
 const store = async (name) => {
   // Create IPFS instance
-  const ipfs = new IPFS(ipfsConfig)
+  const ipfs = IPFS(ipfsConfig)
   await ipfs.onReady
   // Create an OrbitDB instance
   const orbitdb = new OrbitDB(ipfs)

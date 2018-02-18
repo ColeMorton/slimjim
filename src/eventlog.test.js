@@ -8,7 +8,7 @@ describe('eventlog', function() {
   let ipfs
 
   beforeEach(async function() {
-    ipfs = new IPFS()
+    ipfs = IPFS()
     await ipfs.onReady
   })
 
