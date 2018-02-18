@@ -14,12 +14,12 @@ const uuid = () => {
   return uuid;
 }
 
-const canSubscribe = () => {
+const canSubscribe = (getState) => {
   const onChanges = []
   
   const subscribe = (onChange) => onChanges.push(onChange)
 
-  const inform = async () => onChanges.forEach((cb) => cb())
+  const inform = async () => onChanges.forEach((cb) => cb(getState()))
 
   return {
     subscribe,
@@ -60,7 +60,9 @@ const Model = (db) => {
     }
   }
 
-  const { inform, subscribe } = canSubscribe()
+  const setState = (newState) => Object.keys(newState).forEach((key) => state[key] = newState[key])
+  const getState = () => ({ ...state })
+  const { inform, subscribe } = canSubscribe(getState)
 
   // When the database was loaded and is ready to use, 
   // refresh our data model and set the state to ready
@@ -80,8 +82,8 @@ const Model = (db) => {
   })
 
   return {
-    state,
-    getState: () => ({ ...state }),
+    setState,
+    getState,
     subscribe,
     ...canAdd(db, inform),
     ...canRemove(db, inform),

@@ -17,15 +17,19 @@ const uuid = () => {
 }
 
 const TodoModel = (db) => {
-  const { state, ...model } = Model(db)
-  const { add, remove, update, subscribe } = model
+  const model = Model(db)
+  const { add, remove, update, setState, getState } = model
 
-  state.todos = []
+  setState({
+    todos: []
+  })
 
-  subscribe(() => {
-    state.todos = db
+  const subscribe = (done) => model.subscribe((state) => {
+    const todos = db
       .query(e => true, { fullOp: true })
       .map(e => e.todo)
+    setState({ todos })
+    done(getState())
   })
 
   const addTodo = async (title) => {
@@ -56,19 +60,13 @@ const TodoModel = (db) => {
     await update(todo.id, { todo })
   }
 
-  const clearCompleted = () => {
-    state.todos = state.todos.filter(function (todo) {
-      return !todo.completed
-    })
-  }
-
   return {
     ...model,
+    subscribe,
     addTodo,
     toggle,
     destroy,
-    save,
-    clearCompleted
+    save
   }
 }
 

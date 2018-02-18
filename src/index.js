@@ -1,25 +1,16 @@
 'use strict'
 
-// const IPFS = require('./ipfs')
 const store = require('./store')
 const TodoModel = require('./todoModel')
 const OrbitDB = require('orbit-db')
 
-// const init = async () => {
-//   try {
-//     const ipfs = IPFS()
-//     console.log('ipfs', ipfs)
-//     await ipfs.onReady
-//     const db = new OrbitDB(ipfs, './orbitdb/keyvalue')
-//     console.log('db', db)
-//     await db.stop()
-//     await ipfs.stop()
-//   } catch (e) {
-//     throw e
-//   }
-// }
+const newLine = '&#13;&#10;'
 
 const init = async () => {
+  const messageText = document.getElementById("messageText")
+  const sendButton = document.getElementById("send")
+  const output = document.getElementById("output")
+
   try {
     const namespace = 'namespace'
     // Create the store (storage backend), namespace is our database name/id
@@ -28,16 +19,24 @@ const init = async () => {
     // Create the data model
     var model = TodoModel(db, namespace);
 
-    function render() {}
+    function render(state) {
+      console.log('render', state)
+      // output.innerHTML = output.value + `${newLine}${message}`
+    }
 
     // Render the app
     console.log('model', model)
-    model.subscribe(render);
-    render();
+    model.subscribe(render)
 
     // Load the database from locally persisted data
     await db.load()
-    await db.stop()
+
+    const sendMessage = () => {
+      model.addTodo(messageText.value)
+    }
+    sendButton.addEventListener('click', sendMessage)
+
+    // await db.stop()
   } catch (e) {
     throw e
   }
