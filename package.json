@@ -1,7 +1,7 @@
 {
   "name": "slimjim",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "dist/bundle.js",
   "license": "MIT",
   "scripts": {
     "build": "webpack --config webpack.config.js",
