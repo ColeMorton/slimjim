@@ -1,6 +1,7 @@
 {
   "name": "slimjim",
-  "version": "1.0.0",
+  "version": "0.0.17",
+  "private": true,
   "main": "dist/bundle.js",
   "license": "MIT",
   "scripts": {
